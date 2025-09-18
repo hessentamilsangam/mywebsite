@@ -3,71 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <title>HTS - Thirukkural Daily</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+   /* Reset and box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
-    .container {
-      text-align: center;
-      max-width: 90vw;
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-    h1 {
-      font-size: 3rem;
-      animation: fadeColor 4s infinite;
-      margin-bottom: 20px;
-    }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: white;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
 
-    @keyframes fadeColor {
-      0% { opacity: 0; color: red; }
-      25% { opacity: 1; color: black; }
-      50% { opacity: 0; color: yellow; }
-      75% { opacity: 1; color: blue; }
-      100% { opacity: 0; color: red; }
-    }
+.container {
+  text-align: center;
+  max-width: 90vw;
+}
 
-    img {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      margin-bottom: 20px;
-    }
+h1 {
+  font-size: 3rem;
+  animation: fadeColor 4s infinite;
+  margin-bottom: 20px;
+}
 
-    .kural-box {
-      font-size: 1.2rem;
-      max-width: 600px;
-      padding: 15px;
-      border-top: 1px solid #ccc;
-      color: #333;
-    }
+@keyframes fadeColor {
+  0% { opacity: 0; color: red; }
+  25% { opacity: 1; color: black; }
+  50% { opacity: 0; color: yellow; }
+  75% { opacity: 1; color: blue; }
+  100% { opacity: 0; color: red; }
+}
 
-    .kural-line {
-      margin-bottom: 8px;
-    }
+img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin-bottom: 20px;
+}
 
-    .kural-eng {
-      font-style: italic;
-      margin-top: 10px;
-    }
+.kural-box {
+  font-size: 1.2rem;
+  max-width: 600px;
+  padding: 15px;
+  border-top: 1px solid #ccc;
+  color: #333;
+}
 
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
+.kural-line {
+  margin-bottom: 8px;
+}
 
-      .kural-box {
-        font-size: 1rem;
-      }
-    }
+.kural-eng {
+  font-style: italic;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .kural-box {
+    font-size: 1rem;
+  }
+}
+    
   </style>
 </head>
 <body>
