@@ -92,30 +92,37 @@ img {
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const today = new Date();
-      const start = new Date(today.getFullYear(), 0, 0);
-      const diff = today - start;
-      const oneDay = 1000 * 60 * 60 * 24;
-      const dayOfYear = Math.floor(diff / oneDay);
+      const fallbackKural = {
+  number: 1,
+  line1: "அகர முதல எழுத்தெல்லாம் ஆதி",
+  line2: "பகவன் முதற்றே உலகு.",
+  eng: "As the letter A is the first of all letters, so is the Almighty the first in the world."
+};
 
-      fetch('thirukkural.json')
-        .then(response => response.json())
-        .then(kurals => {
-          const index = dayOfYear % kurals.length;
-          const kural = kurals[index];
-          const el = document.getElementById('kural');
+fetch('thirukkural.json')
+  .then(response => response.json())
+  .then(kurals => {
+    const index = dayOfYear % kurals.length;
+    const kural = kurals[index];
+    const el = document.getElementById('kural');
+    el.innerHTML = `
+      <div class="kural-line">${kural.line1}</div>
+      <div class="kural-line">${kural.line2}</div>
+      <div class="kural-eng">"${kural.eng}"</div>
+      <div style="margin-top: 5px; font-size: 0.9rem; color: #666;">— Thirukkural #${kural.number}</div>
+    `;
+  })
+  .catch(err => {
+    console.error(err);
+    const el = document.getElementById('kural');
+    el.innerHTML = `
+      <div class="kural-line">${fallbackKural.line1}</div>
+      <div class="kural-line">${fallbackKural.line2}</div>
+      <div class="kural-eng">"${fallbackKural.eng}"</div>
+      <div style="margin-top: 5px; font-size: 0.9rem; color: #666;">— Thirukkural #${fallbackKural.number}</div>
+    `;
+  });
 
-          el.innerHTML = `
-            <div class="kural-line">${kural.line1}</div>
-            <div class="kural-line">${kural.line2}</div>
-            <div class="kural-eng">"${kural.eng}"</div>
-            <div style="margin-top: 5px; font-size: 0.9rem; color: #666;">— Thirukkural #${kural.number}</div>
-          `;
-        })
-        .catch(err => {
-          console.error(err);
-          document.getElementById('kural').textContent = 'Failed to load Thirukkural.';
-        });
     });
   </script>
 </body>
