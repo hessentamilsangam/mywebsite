@@ -2,13 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTS</title>
+  <title>HTS - Thirukkural Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       padding: 0;
@@ -21,9 +17,6 @@
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       text-align: center;
       max-width: 90vw;
     }
@@ -35,10 +28,10 @@
     }
 
     @keyframes fadeColor {
-      0%   { opacity: 0; color: red; }
-      25%  { opacity: 1; color: black; }
-      50%  { opacity: 0; color: yellow; }
-      75%  { opacity: 1; color: blue; }
+      0% { opacity: 0; color: red; }
+      25% { opacity: 1; color: black; }
+      50% { opacity: 0; color: yellow; }
+      75% { opacity: 1; color: blue; }
       100% { opacity: 0; color: red; }
     }
 
@@ -87,32 +80,32 @@
   </div>
 
   <script>
-    // Get current day of year (1 to 365)
-    const today = new Date();
-    const start = new Date(today.getFullYear(), 0, 0);
-    const diff = today - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const start = new Date(today.getFullYear(), 0, 0);
+      const diff = today - start;
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
 
-    // Thirukkural numbers are 1–1330. Loop if day > 1330
-    const kuralNumber = (dayOfYear % 1330) + 1;
+      fetch('thirukkural.json')
+        .then(response => response.json())
+        .then(kurals => {
+          const index = dayOfYear % kurals.length;
+          const kural = kurals[index];
+          const el = document.getElementById('kural');
 
-    fetch(`https://api-thirukkural.vercel.app/api?num=${kuralNumber}`)
-      .then(res => res.json())
-      .then(data => {
-        const kuralBox = document.getElementById('kural');
-        kuralBox.innerHTML = `
-          <div class="kural-line">${data.line1}</div>
-          <div class="kural-line">${data.line2}</div>
-          <div class="kural-eng">"${data.eng}"</div>
-          <div style="margin-top: 5px; font-size: 0.9rem; color: #666;">
-            — Thirukkural #${data.number}
-          </div>
-        `;
-      })
-      .catch(() => {
-        document.getElementById('kural').textContent = 'Failed to load Thirukkural.';
-      });
+          el.innerHTML = `
+            <div class="kural-line">${kural.line1}</div>
+            <div class="kural-line">${kural.line2}</div>
+            <div class="kural-eng">"${kural.eng}"</div>
+            <div style="margin-top: 5px; font-size: 0.9rem; color: #666;">— Thirukkural #${kural.number}</div>
+          `;
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById('kural').textContent = 'Failed to load Thirukkural.';
+        });
+    });
   </script>
 </body>
 </html>
