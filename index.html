@@ -31,47 +31,48 @@
     h1 {
       font-size: 3rem;
       animation: fadeColor 4s infinite;
-      margin-bottom: 30px;
-      word-break: break-word;
+      margin-bottom: 20px;
     }
 
     @keyframes fadeColor {
-      0% {
-        opacity: 0;
-        color: red;
-      }
-      25% {
-        opacity: 1;
-        color: black;
-      }
-      50% {
-        opacity: 0;
-        color: yellow;
-      }
-      75% {
-        opacity: 1;
-        color: blue;
-      }
-      100% {
-        opacity: 0;
-        color: red;
-      }
+      0%   { opacity: 0; color: red; }
+      25%  { opacity: 1; color: black; }
+      50%  { opacity: 0; color: yellow; }
+      75%  { opacity: 1; color: blue; }
+      100% { opacity: 0; color: red; }
     }
 
     img {
       width: 100%;
       max-width: 600px;
       height: auto;
+      margin-bottom: 20px;
+    }
+
+    .kural-box {
+      font-size: 1.2rem;
+      max-width: 600px;
+      padding: 15px;
+      border-top: 1px solid #ccc;
+      color: #333;
+    }
+
+    .kural-line {
+      margin-bottom: 8px;
+    }
+
+    .kural-eng {
+      font-style: italic;
+      margin-top: 10px;
     }
 
     @media (max-width: 768px) {
       h1 {
         font-size: 2rem;
-        margin-bottom: 20px;
       }
 
-      img {
-        max-width: 90vw;
+      .kural-box {
+        font-size: 1rem;
       }
     }
   </style>
@@ -80,6 +81,38 @@
   <div class="container">
     <h1>Launching soon...</h1>
     <img src="HTS_GIF.gif" alt="HTS GIF">
+    <div class="kural-box" id="kural">
+      Loading Thirukkural...
+    </div>
   </div>
+
+  <script>
+    // Get current day of year (1 to 365)
+    const today = new Date();
+    const start = new Date(today.getFullYear(), 0, 0);
+    const diff = today - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+
+    // Thirukkural numbers are 1–1330. Loop if day > 1330
+    const kuralNumber = (dayOfYear % 1330) + 1;
+
+    fetch(`https://api-thirukkural.vercel.app/api?num=${kuralNumber}`)
+      .then(res => res.json())
+      .then(data => {
+        const kuralBox = document.getElementById('kural');
+        kuralBox.innerHTML = `
+          <div class="kural-line">${data.line1}</div>
+          <div class="kural-line">${data.line2}</div>
+          <div class="kural-eng">"${data.eng}"</div>
+          <div style="margin-top: 5px; font-size: 0.9rem; color: #666;">
+            — Thirukkural #${data.number}
+          </div>
+        `;
+      })
+      .catch(() => {
+        document.getElementById('kural').textContent = 'Failed to load Thirukkural.';
+      });
+  </script>
 </body>
 </html>
