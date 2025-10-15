@@ -57,6 +57,17 @@ body {
             height: 30%;
             border-radius: 0px;
         }
+        .register-section {
+            text-align: center;
+            padding: 32px 16px;
+            background: #ffe6e6;
+        }
+        .register-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #0a014e;
+            margin-bottom: 16px;
+        }
         .events-section {
             padding: 32px 16px;
             background: #f3e6e6;
