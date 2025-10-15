@@ -1,0 +1,216 @@
+body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            color: #222;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: #150464;
+            color: #fff;
+        }
+        .site-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .register-btn {
+            background: #fff;
+            color: #150464;
+            padding: 8px 18px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .register-btn:hover {
+            background: #ffd6d6;
+        }
+        nav {
+            background: #a52a2a;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 22px;
+            font-size: 1em;
+            transition: background 0.2s;
+        }
+        nav a:hover {
+            background: #800000;
+        }
+        .gif-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 0;
+            background-color: white;
+        }
+        .gif-section img {
+            max-width: 30%;
+            height: 30%;
+            border-radius: 0px;
+        }
+        .events-section {
+            padding: 32px 16px;
+            background: #f3e6e6;
+        }
+        .events-title {
+            text-align: center;
+            font-size: 1.4em;
+            margin-bottom: 24px;
+            font-weight: bold;
+            color: #0a014e;
+        }
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+                /* ...existing code... */
+        
+        .event-card {
+            position: relative;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+            padding: 18px;
+            text-align: center;
+            transition: box-shadow 0.2s;
+            overflow: hidden; /* Ensure pseudo-element stays inside */
+        }
+        
+        .event-card::before {
+            content: "";
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            border-radius: 10px;
+            padding: 0;
+            z-index: 1;
+            pointer-events: none;
+            border: 3px solid transparent;
+            background: 
+              linear-gradient(120deg, #0074D9, #FFD700, #000 70%);
+            background-size: 300% 300%;
+            animation: borderAnim 2.5s linear infinite;
+        }
+        
+        @keyframes borderAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        /* Ensure content is above the animated border */
+        .event-card > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ...existing code... */
+        .event-card:hover {
+            box-shadow: 0 4px 16px rgba(128,0,0,0.12);
+        }
+        .event-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #a52a2a;
+        }
+        .event-date {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        .event-desc {
+            font-size: 0.95em;
+            color: #333;
+        }
+        .contact-section {
+            background: #fff;
+            padding: 32px 16px;
+            max-width: 700px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+        }
+        .contact-title {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #800000;
+            margin-bottom: 18px;
+        }
+        .contact-info {
+            text-align: center;
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .contact-form button {
+            background: #800000;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .contact-form button:hover {
+            background: #a52a2a;
+        }
+        footer {
+            background: #800000;
+            color: #fff;
+            text-align: center;
+            padding: 18px 8px;
+            font-size: 0.95em;
+            margin-top: 32px;
+        }
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 12px 10px;
+            }
+            nav a {
+                padding: 12px 10px;
+                font-size: 0.98em;
+            }
+            .events-section, .contact-section {
+                padding: 20px 6px;
+            }
+            .events-title, .contact-title {
+                font-size: 1.1em;
+            }
+        }
