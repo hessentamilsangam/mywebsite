@@ -41,6 +41,38 @@
         opacity: 1;
       }
     }
+       .gif-section {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        width: 120px;         /* logo width */
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto; /* allow clicks on the GIF if needed */
+        background: transparent;
+    }
+    
+    .gif-section img {
+      width: 100%;
+      height: auto;
+      display: block;
+      align-items: center;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    
+    @media (max-width: 480px) {
+      .gif-section {
+        width: 80px;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
   </style>
 </head>
 <body>
@@ -52,9 +84,6 @@
 <br><br>
 Hessen Tamil Sangam
 </div>
-    <div class="gif-section" id="home" style="width: 30%; margin: auto; position: relative; z-index: 2; top: 20vh;">
-        Hessen Tamil Sangam
-    </div>
 <script>
   const canvas = document.getElementById('fireworks');
   const ctx = canvas.getContext('2d');
@@ -130,6 +159,8 @@ Hessen Tamil Sangam
 
   loop();
 </script>
-
+<div class="gif-section">
+        <img src="HTS_GIF.gif" alt="Hessen Tamil Sangam">
+    </div>
 </body>
 </html>
