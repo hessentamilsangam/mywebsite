@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTS Inauguration</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      font-family: Arial, sans-serif;
+    }
+
+    #fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2.5rem;
+      opacity: 0;
+      z-index: 2;
+      text-align: center;
+      animation: fadeIn 3s ease forwards;
+      animation-delay: 1s; /* delay before showing */
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="fireworks"></canvas>
+<div id="message">🎉 தீபத்திருநாளில் இருள் நீங்கி ஒளி பெற
+உங்களுக்கும் உங்கள் குடும்பத்திற்கும்
+இனிய தீபாவளி நல்வாழ்த்துக்கள் 🎉
+<br><br>
+Hessen Tamil Sangam
+</div>
+    <div class="gif-section" id="home" style="width: 30%; margin: auto; position: relative; z-index: 2; top: 20vh;">
+        Hessen Tamil Sangam
+    </div>
+<script>
+  const canvas = document.getElementById('fireworks');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  let particles = [];
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createFirework(x, y) {
+    const colors = ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#ff00ff', '#ffffff'];
+    const count = 80;
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x,
+        y,
+        radius: 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        angle: Math.random() * 2 * Math.PI,
+        speed: random(1, 6),
+        alpha: 1,
+        decay: random(0.01, 0.02)
+      });
+    }
+  }
+
+  function updateParticles() {
+    for (let i = particles.length - 1; i >= 0; i--) {
+      let p = particles[i];
+      p.x += Math.cos(p.angle) * p.speed;
+      p.y += Math.sin(p.angle) * p.speed + 0.5; // gravity
+      p.alpha -= p.decay;
+      if (p.alpha <= 0) {
+        particles.splice(i, 1);
+      }
+    }
+  }
+
+  function drawParticles() {
+    particles.forEach(p => {
+      ctx.globalAlpha = p.alpha;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  function loop() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    updateParticles();
+    drawParticles();
+    requestAnimationFrame(loop);
+  }
+
+  // Launch fireworks automatically every second
+  setInterval(() => {
+    const x = random(100, canvas.width - 100);
+    const y = random(100, canvas.height / 2);
+    createFirework(x, y);
+  }, 1000);
+
+  loop();
+</script>
+
+</body>
+</html>
